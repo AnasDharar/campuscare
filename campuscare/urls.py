@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('main.urls')),
     path('accounts/', include('allauth.urls')),  # new
     path('dashboard/', include('userprofile.urls')),
+    path('tests/', include('tests.urls'))
 ]

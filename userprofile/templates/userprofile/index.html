@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusCare • User Profile</title>
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="{% static 'userprofile/styles.css' %}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -26,9 +27,9 @@
             <!-- Profile Header Section -->
             <section class="profile-header">
                 <div class="profile-info">
-                    <h1 id="displayName">Loading...</h1>
-                    <p id="displayCollege">Loading...</p>
-                    <p id="displayEmail">Loading...</p>
+                    <h1 id="displayName">{{ first_name }} {{ last_name }}</h1>
+                    <p id="displayCollege">{{ college_name }}</p>
+                    <p id="displayEmail">{{ email }}</p>
                 </div>
                 <button class="edit-profile-btn" onclick="toggleEditMode()">
                     <i class="fas fa-edit"></i>
@@ -96,7 +97,7 @@
                 <section class="card tests-section">
                     <div class="card-header">
                         <h2><i class="fas fa-clipboard-check"></i> Recent Mental Health Tests</h2>
-                        <a href="test.html" class="add-btn">
+                        <a href="{% url 'test' %}" class="add-btn">
                             <i class="fas fa-plus"></i>
                             Take Test
                         </a>
@@ -233,6 +234,6 @@
 
 
 
-    <script src="profile.js"></script>
+    <script src="{% static 'userprofile/script.js' %}"></script>
 </body>
 </html>
