@@ -1,11 +1,153 @@
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusCare</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Therapist Landing Page</title>
+	<style>
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			margin: 0;
+			padding: 0;
+			background: #f6f7fb;
+			color: #333;
+		}
+		.navbar {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background: #fff;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+			padding: 0 32px;
+			height: 64px;
+			position: sticky;
+			top: 0;
+			z-index: 100;
+		}
+		.navbar .logo {
+			font-weight: bold;
+			font-size: 1.3rem;
+			color: #6c63ff;
+			letter-spacing: 1px;
+		}
+		.navbar ul {
+			list-style: none;
+			display: flex;
+			gap: 28px;
+			margin: 0;
+			padding: 0;
+		}
+		.navbar ul li {
+			display: inline;
+		}
+		.navbar a, .navbar .login-btn {
+			text-decoration: none;
+			color: #333;
+			font-size: 1.05rem;
+			padding: 8px 18px;
+			border-radius: 20px;
+			transition: background 0.18s, color 0.18s;
+		}
+		.navbar a:hover {
+			background: #f0f0ff;
+			color: #6c63ff;
+		}
+		.navbar .login-btn {
+			background: #6c63ff;
+			color: #fff;
+			border: none;
+			cursor: pointer;
+			font-weight: 500;
+			margin-left: 10px;
+		}
+		.navbar .login-btn:hover {
+			background: #5548c8;
+		}
+		.hero {
+			background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+			padding: 60px 20px 40px 20px;
+			text-align: center;
+		}
+		.hero h1 {
+			font-size: 2.8rem;
+			margin-bottom: 10px;
+		}
+		.hero p {
+			font-size: 1.2rem;
+			margin-bottom: 30px;
+		}
+		.cta-btn, .hero-login-btn {
+			background: #6c63ff;
+			color: #fff;
+			padding: 14px 36px;
+			border: none;
+			border-radius: 25px;
+			font-size: 1.1rem;
+			cursor: pointer;
+			transition: background 0.2s;
+			margin: 0 8px 10px 8px;
+		}
+		.cta-btn:hover, .hero-login-btn:hover {
+			background: #5548c8;
+		}
+		.section {
+			max-width: 800px;
+			margin: 40px auto;
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+			padding: 32px 24px;
+		}
+		.section h2 {
+			margin-top: 0;
+		}
+		.footer {
+			text-align: center;
+			padding: 18px 0;
+			background: #eaeaea;
+			color: #888;
+			font-size: 0.95rem;
+		}
+	</style>
 </head>
 <body>
-    This is the landing page of CampusCare.
+	<nav class="navbar">
+		<div class="logo">Mindful Path</div>
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#services">Services</a></li>
+			<li><a href="#contact">Contact</a></li>
+		</ul>
+		<a href="{% provider_login_url 'google' %}"><button class="login-btn">Login</button></a>
+	</nav>
+	<div class="hero">
+		<h1>Welcome to Mindful Path Therapy</h1>
+		<p>Your journey to well-being starts here. Compassionate, confidential, and professional therapy for individuals and families.</p>
+		<button class="cta-btn">Book a Session</button>
+		<button class="hero-login-btn">Login</button>
+	</div>
+	<div class="section" id="about">
+		<h2>About Me</h2>
+		<p>Hi, I'm Dr. Alex Morgan, a licensed therapist with over 10 years of experience helping people navigate life's challenges. My approach is warm, empathetic, and tailored to your unique needs.</p>
+	</div>
+	<div class="section" id="services">
+		<h2>Services</h2>
+		<ul>
+			<li>Individual Therapy</li>
+			<li>Family & Couples Counseling</li>
+			<li>Stress & Anxiety Management</li>
+			<li>Depression Support</li>
+			<li>Online Sessions Available</li>
+		</ul>
+	</div>
+	<div class="section" id="contact">
+		<h2>Contact</h2>
+		<p>Email: <a href="mailto:alex.morgan@therapy.com">alex.morgan@therapy.com</a><br>
+		Phone: (555) 123-4567</p>
+	</div>
+	<div class="footer">
+		&copy; 2025 Mindful Path Therapy. All rights reserved.
+	</div>
 </body>
 </html>
