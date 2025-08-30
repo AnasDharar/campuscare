@@ -22,6 +22,19 @@ body {
   padding: 0 20px;
 }
 
+/* Responsive Container */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
 /* Header/Navbar */
 .header {
   position: fixed;
@@ -71,6 +84,34 @@ body {
   display: flex;
   list-style: none;
   gap: 2rem;
+}
+
+/* Mobile Navigation Toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+}
+
+.nav-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background-color: #374151;
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+.nav-toggle.active .bar:nth-child(1) {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.nav-toggle.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active .bar:nth-child(3) {
+  transform: rotate(45deg) translate(-5px, -6px);
 }
 
 .nav-link {
@@ -293,6 +334,56 @@ body {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Hero Responsive */
+@media (max-width: 768px) {
+  .hero-content-overlay {
+    padding: 30px 20px;
+    max-width: 90%;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .carousel-nav {
+    padding: 0 15px;
+  }
+  
+  .carousel-arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .hero-content-overlay {
+    padding: 20px 15px;
+  }
 }
 
 .btn {
@@ -345,6 +436,21 @@ body {
   text-align: center;
   margin-bottom: 3rem;
   color: #1f2937;
+}
+
+/* Section Title Responsive */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Features Section */
@@ -408,6 +514,44 @@ body {
   transform: translateY(-2px);
 }
 
+/* Features Responsive */
+@media (max-width: 768px) {
+  .features {
+    padding: 60px 0;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .feature-card {
+    padding: 1.5rem;
+  }
+  
+  .feature-icon {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .features {
+    padding: 40px 0;
+  }
+  
+  .feature-card {
+    padding: 1.25rem;
+  }
+  
+  .feature-card h3 {
+    font-size: 1.25rem;
+  }
+  
+  .feature-card p {
+    font-size: 0.9rem;
+  }
+}
+
 /* Therapists Section - Removed as it will be shown after login */
 
 /* Tests Section */
@@ -454,6 +598,44 @@ body {
   line-height: 1.6;
 }
 
+/* Tests Responsive */
+@media (max-width: 768px) {
+  .tests {
+    padding: 60px 0;
+  }
+  
+  .tests-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .test-card {
+    padding: 1.5rem;
+  }
+  
+  .test-icon {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tests {
+    padding: 40px 0;
+  }
+  
+  .test-card {
+    padding: 1.25rem;
+  }
+  
+  .test-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .test-card p {
+    font-size: 0.9rem;
+  }
+}
+
 /* About Section */
 .about {
   padding: 80px 0;
@@ -481,6 +663,38 @@ body {
   font-size: 6rem;
   color: #4f46e5;
   opacity: 0.8;
+}
+
+/* About Responsive */
+@media (max-width: 768px) {
+  .about {
+    padding: 60px 0;
+  }
+  
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .about-illustration {
+    font-size: 4rem;
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .about {
+    padding: 40px 0;
+  }
+  
+  .about-text p {
+    font-size: 1rem;
+  }
+  
+  .about-illustration {
+    font-size: 3rem;
+  }
 }
 
 /* Contact Section */
@@ -519,11 +733,43 @@ body {
   align-items: center;
   gap: 1rem;
   color: #6b7280;
+  justify-content: center;
 }
 
 .contact-item i {
   color: #4f46e5;
   width: 20px;
+}
+
+/* Contact Responsive */
+@media (max-width: 768px) {
+  .contact {
+    padding: 60px 0;
+  }
+  
+  .contact-info h3 {
+    font-size: 1.5rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact {
+    padding: 40px 0;
+  }
+  
+  .contact-info h3 {
+    font-size: 1.3rem;
+  }
+  
+  .contact-info p {
+    font-size: 0.9rem;
+  }
 }
 
 /* Contact form removed - only contact info displayed */
@@ -576,6 +822,34 @@ body {
   padding-top: 2rem;
   text-align: center;
   color: #9ca3af;
+}
+
+/* Footer Responsive */
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 0 20px;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 30px 0 15px;
+  }
+  
+  .footer-section h3,
+  .footer-section h4 {
+    font-size: 1.1rem;
+  }
+  
+  .footer-section p {
+    font-size: 0.9rem;
+  }
 }
 
 /* Chatbot */
@@ -667,6 +941,40 @@ body {
   margin-bottom: 1rem;
   color: #6b7280;
   line-height: 1.6;
+}
+
+/* Chatbot Responsive */
+@media (max-width: 768px) {
+  .chatbot-icon {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+  
+  .chatbot-popup {
+    width: 300px;
+    right: 20px;
+    bottom: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatbot-popup {
+    width: calc(100vw - 20px);
+    right: 10px;
+    left: 10px;
+    bottom: 80px;
+  }
+  
+  .chatbot-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .chatbot-body {
+    padding: 1rem;
+  }
 }
 
 /* Responsive Design */
