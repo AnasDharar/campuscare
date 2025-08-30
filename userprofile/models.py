@@ -11,3 +11,16 @@ class Student(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s scores"
+
+class MentalHealthTestResult(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    test_name = models.CharField(max_length=50)
+    score = models.IntegerField()
+    max_score = models.IntegerField()
+    category = models.CharField(max_length=50)
+    responses = models.JSONField()
+    date = models.DateTimeField()
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.test_name} ({self.date.date()})"
+

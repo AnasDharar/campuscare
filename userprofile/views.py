@@ -2,6 +2,21 @@ from django.shortcuts import render
 from userprofile.models import Student
 # Create your views here.
 def dashboard(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            test_result = MentalHealthTestResult.objects.create(
+                user=request.user,
+                test_name=data.get('testName'),
+                score=data.get('score'),
+                max_score=data.get('maxScore'),
+                category=data.get('category'),
+                responses=data.get('responses'),
+                date=data.get('date')
+            )
+        except Exception as e:
+            print(f"Error occurred: {e}")
+
     user = request.user
     student = Student.objects.get(user=user)
 
