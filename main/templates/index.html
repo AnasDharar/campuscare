@@ -23,7 +23,7 @@
         <div class="nav-container">
           <div class="nav-logo">
             <a href="#home">
-              <img src="logo.png" alt="CampusCare Logo" class="logo-image" id="logo" />
+              <img src="{% static 'main/logo.png' %}" alt="CampusCare Logo" class="logo-image" id="logo" />
             </a>
           </div>
           <ul class="nav-menu" id="nav-menu">
@@ -316,7 +316,7 @@
     <!-- Chatbot Icon -->
     <div class="chatbot-icon" onclick="toggleChatbot()">
       <i class="fas fa-comments"></i>
-       <!-- <img src="chatbot.png" alt="Chatbot Icon" class="chatbot-icon-image"> -->
+       <img src="{% static 'main/chatbot.png' %}" alt="Chatbot Icon" class="chatbot-icon-image">
     </div>
 
     <!-- Chatbot Popup -->
@@ -336,6 +336,6 @@
       </div>
     </div>
 
-    <script src="{% static 'script.js' %}"></script>
+    <script src="{% static 'main/script.js' %}"></script>
   </body>
 </html>
