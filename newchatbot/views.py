@@ -3,6 +3,7 @@ from .models import ChatHistory
 from .forms import ChatForm
 from .gemini import generate_therapist_response
 
+@csrf_exempt
 def chat_view(request):
     user_id = "test_user"  # Replace with actual user login if needed
     if request.method == "POST":
