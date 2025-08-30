@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusCare • User Profile</title>
+    <link rel="stylesheet" href="profile.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span>CampusCare</span>
+            </div>
+            <div class="header-actions">
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Profile Header Section -->
+            <section class="profile-header">
+                <div class="profile-info">
+                    <h1 id="displayName">Loading...</h1>
+                    <p id="displayCollege">Loading...</p>
+                    <p id="displayEmail">Loading...</p>
+                </div>
+                <button class="edit-profile-btn" onclick="toggleEditMode()">
+                    <i class="fas fa-edit"></i>
+                    Edit Profile
+                </button>
+            </section>
+
+            <!-- Edit Profile Form (Hidden by default) -->
+            <section id="editForm" class="edit-form hidden">
+                <h2>Edit Profile Information</h2>
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="collegeName">College Name</label>
+                        <input type="text" id="collegeName" name="collegeName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email (Optional)</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                        <button type="button" class="cancel-btn" onclick="toggleEditMode()">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Content Grid -->
+            <div class="content-grid">
+                <!-- Past Therapies Section -->
+                <section class="card therapies-section">
+                    <div class="card-header">
+                        <h2><i class="fas fa-comments"></i> Past Therapy Sessions</h2>
+                        <button class="add-btn" onclick="addTherapySession()">
+                            <i class="fas fa-plus"></i>
+                            Add Session
+                        </button>
+                    </div>
+                    <div class="card-content">
+                        <div id="therapiesList" class="therapies-list">
+                            <!-- Therapy sessions will be populated here -->
+                        </div>
+                        <div id="noTherapies" class="empty-state">
+                            <i class="fas fa-calendar-times"></i>
+                            <p>No therapy sessions recorded yet.</p>
+                            <p>Click "Add Session" to get started.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Tests Section -->
+                <section class="card tests-section">
+                    <div class="card-header">
+                        <h2><i class="fas fa-clipboard-check"></i> Recent Mental Health Tests</h2>
+                    </div>
+                    <div class="card-content">
+                        <div id="testsList" class="tests-list">
+                            <!-- Test results will be populated here -->
+                        </div>
+                        <div id="noTests" class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>No tests completed yet.</p>
+                            <p>Click "Add Test" to record your first assessment.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Therapy Session Modal -->
+    <div id="therapyModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Therapy Session</h3>
+                <button class="close-btn" onclick="closeTherapyModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="therapyForm">
+                <div class="form-group">
+                    <label for="sessionDate">Session Date</label>
+                    <input type="date" id="sessionDate" name="sessionDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="sessionNotes">Session Notes</label>
+                    <textarea id="sessionNotes" name="sessionNotes" rows="4" placeholder="Brief notes about the session..." required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">Add Session</button>
+                    <button type="button" class="cancel-btn" onclick="closeTherapyModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Test Result Modal -->
+    <div id="testModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Test Result</h3>
+                <button class="close-btn" onclick="closeTestModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="testResultForm">
+                <div class="form-group">
+                    <label for="testName">Test Name</label>
+                    <input type="text" id="testName" name="testName" placeholder="e.g., PHQ-9, GAD-7, etc." required>
+                </div>
+                <div class="form-group">
+                    <label for="testDate">Test Date</label>
+                    <input type="date" id="testDate" name="testDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="testScore">Score</label>
+                    <input type="number" id="testScore" name="testScore" placeholder="e.g., 15" required>
+                </div>
+                <div class="form-group">
+                    <label for="maxScore">Maximum Score</label>
+                    <input type="number" id="maxScore" name="maxScore" placeholder="e.g., 27" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">Add Test</button>
+                    <button type="button" class="cancel-btn" onclick="closeTestModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="profile.js"></script>
+</body>
+</html>
