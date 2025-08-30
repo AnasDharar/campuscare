@@ -357,3 +357,19 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 console.log("CampusCare landing page loaded successfully! 🧠💙");
+function sendMessage() {
+    fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            user_id: "123",
+            prompt: "Hello, I want to start chatting!"
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("Chatbot says:", data.response);
+        alert("Chatbot: " + data.response);  // temporary
+    });
+}
+

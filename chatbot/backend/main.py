@@ -11,7 +11,7 @@ app = FastAPI(title="Therapist Chatbot")
 # Allowed origins for CORS
 origins = [
     "http://localhost:3000",  # React frontend
-    "http://127.0.0.1:3000",  # React frontend
+    "http://127.0.0.1:8001",  # React frontend
 ]
 
 # Add CORS middleware
@@ -33,6 +33,9 @@ def get_db():
         yield db
     finally:
         db.close()
+@app.get("/")
+def root():
+    return {"msg": "FastAPI chatbot is running"}
 
 # POST endpoint for chatting with the therapist
 @app.post("/chat", response_model=schemas.PromptResponse)

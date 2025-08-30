@@ -158,9 +158,14 @@
               Get instant support and guidance through our AI-powered chatbot
               available 24/7.
             </p>
-            <button class="feature-btn" onclick="openChatbot()">
-              Chat Now
-            </button>
+            <form action="http://127.0.0.1:8001/api/chat/" method="POST">
+    <!-- If your FastAPI expects JSON, you need JS (see next step) -->
+    <input type="hidden" name="key1" value="value1">
+    <input type="hidden" name="key2" value="value2">
+    <button type="submit" class="feature-btn">Chat Now</button>
+</form>
+
+            <!-- <a href="http://127.0.0.1:8001/api/chat/" class="feature-btn">Chat Now</a> -->
           </div>
           <div class="feature-card">
             <div class="feature-icon">
