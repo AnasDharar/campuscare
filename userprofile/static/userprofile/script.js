@@ -266,29 +266,33 @@ class ProfileManager {
             let category = '';
             let maxScore = 0;
             
-            if (result.testName === 'PHQ-9') {
+            if (result.testName === 'PHQ-9' || result.testName === 'PHQ9') {
                 maxScore = 27;
                 if (result.score <= 4) category = 'Minimal';
                 else if (result.score <= 9) category = 'Mild';
                 else if (result.score <= 14) category = 'Moderate';
                 else if (result.score <= 19) category = 'Moderately Severe';
                 else category = 'Severe';
-            } else if (result.testName === 'GAD-7') {
+            } else if (result.testName === 'GAD-7' || result.testName === 'GAD7') {
                 maxScore = 21;
                 if (result.score <= 4) category = 'Minimal';
                 else if (result.score <= 9) category = 'Mild';
                 else if (result.score <= 14) category = 'Moderate';
                 else category = 'Severe';
-            } else if (result.testName === 'PSS-10') {
+            } else if (result.testName === 'PSS-10' || result.testName === 'PSS10') {
                 maxScore = 40;
                 if (result.score <= 13) category = 'Low';
                 else if (result.score <= 26) category = 'Moderate';
                 else category = 'High';
-            } else if (result.testName === 'Sleep Quality Test') {
+            } else if (result.testName === 'Sleep Quality Test' || result.testName === 'SLEEP') {
                 maxScore = 15;
                 if (result.score <= 5) category = 'Good';
                 else if (result.score <= 10) category = 'Fair';
                 else category = 'Poor';
+            } else {
+                // Default maxScore based on common test ranges or use a reasonable default
+                maxScore = result.maxScore || 27; // Default to PHQ-9 range if no maxScore provided
+                category = 'Unknown';
             }
             
             allTests.push({
