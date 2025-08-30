@@ -345,6 +345,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 console.log("CampusCare landing page loaded successfully! 🧠💙");
+
+// Show coming soon message for Book Now feature
+function showComingSoon(event) {
+    event.preventDefault();
+    alert("Feature coming soon");
+}
+
 function sendMessage() {
     fetch("/api/chat", {
         method: "POST",
