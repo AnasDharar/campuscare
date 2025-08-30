@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Therapist Chatbot</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-8">
+  <div class="w-full max-w-2xl bg-white shadow-lg rounded-lg p-6">
+    <h1 class="text-2xl font-bold mb-4 text-blue-600">🧠 Therapist Chatbot</h1>
+
+    <label class="block text-gray-700 font-medium mb-1" for="user_id">User ID</label>
+    <input id="user_id" type="text" placeholder="e.g., user123"
+      class="w-full border border-gray-300 rounded px-3 py-2 mb-4" />
+
+    <label class="block text-gray-700 font-medium mb-1" for="prompt">Your Message</label>
+    <textarea id="prompt" rows="4" placeholder="I'm feeling overwhelmed..."
+      class="w-full border border-gray-300 rounded px-3 py-2 mb-4"></textarea>
+
+    <button onclick="sendMessage()"
+      class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+      Send
+    </button>
+
+    <div id="responseBox" class="mt-6 p-4 bg-gray-50 border rounded text-gray-800 whitespace-pre-line hidden"></div>
+
+    <div id="historyBox" class="mt-10">
+      <h2 class="text-xl font-bold text-gray-800 mb-4">📜 Chat History</h2>
+      <div id="historyList" class="space-y-4"></div>
+    </div>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const userId = document.getElementById('user_id').value.trim();
+      const prompt = document.getElementById('prompt').value.trim();
+      const responseBox = document.getElementById('responseBox');
+      const historyList = document.getElementById('historyList');
+
+      if (!userId || !prompt) {
+        alert("Please enter both User ID and a message.");
+        return;
+      }
+
+      responseBox.classList.remove("hidden");
+      responseBox.textContent = "🕐 Waiting for response...";
+
+      try {
+        const res = await fetch("http://localhost:8000/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: userId, prompt: prompt })
+        });
+
+        const data = await res.json();
+        responseBox.textContent = `🧠 Therapist: ${data.response}`;
+
+        // Refresh history
+        const histRes = await fetch(`http://localhost:8000/history/${userId}`);
+        const history = await histRes.json();
+
+        historyList.innerHTML = history.map(item => `
+          <div class="p-4 border rounded bg-white shadow-sm">
+            <p><strong class="text-blue-600">You:</strong> ${item.prompt}</p>
+            <p><strong class="text-green-600">Therapist:</strong> ${item.response}</p>
+            <p class="text-sm text-gray-500 mt-1">${new Date(item.timestamp).toLocaleString()}</p>
+          </div>
+        `).join("");
+
+      } catch (err) {
+        responseBox.textContent = "❌ Could not connect to backend.";
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>

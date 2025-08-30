@@ -1,16 +1,18 @@
-"""
-ASGI config for campuscare project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
-"""
-
 import os
-
 from django.core.asgi import get_asgi_application
+from fastapi import FastAPI
+from chatbot.backend.main import app as chatbot_app   # ✅ Import your chatbot FastAPI app
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'campuscare.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "campuscare.settings")
 
-application = get_asgi_application()
+# Django app
+django_app = get_asgi_application()
+
+# Root ASGI app
+app = FastAPI(title="CampusCare Combined App")
+
+# Mount Django at /django
+app.mount("/django", django_app)
+
+# Mount Chatbot FastAPI app at /api
+app.mount("/api", chatbot_app)
