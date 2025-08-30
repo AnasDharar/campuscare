@@ -1,5 +1,4 @@
-{% load socialaccount %}
-{% load static %}
+{% load socialaccount %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,7 +22,12 @@
         <div class="nav-container">
           <div class="nav-logo">
             <a href="#home">
-              <img src="{% static 'main/logo.png' %}" alt="CampusCare Logo" class="logo-image" id="logo" />
+              <img
+                src="{% static 'main/logo.png' %}"
+                alt="CampusCare Logo"
+                class="logo-image"
+                id="logo"
+              />
             </a>
           </div>
           <ul class="nav-menu" id="nav-menu">
@@ -48,7 +52,11 @@
           </ul>
           <div class="nav-auth">
             <!-- <a href="#" class="auth-btn auth-signin">Sign In With Google</a> -->
-            <a href="{% provider_login_url 'google' %}" class="auth-btn auth-login">Sign In With Google</a>
+            <a
+              href="{% provider_login_url 'google' %}"
+              class="auth-btn auth-login"
+              >Sign In With Google</a
+            >
           </div>
           <div class="nav-toggle" id="nav-toggle">
             <span class="bar"></span>
@@ -136,8 +144,16 @@
               sessions.
             </p>
             <div class="hero-buttons">
-              <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Take a Test</a>
-              <a href="{% provider_login_url 'google' %}" class="btn btn-secondary">Book a Session</a>
+              <a
+                href="{% provider_login_url 'google' %}"
+                class="btn btn-primary"
+                >Take a Test</a
+              >
+              <a
+                href="{% provider_login_url 'google' %}"
+                class="btn btn-secondary"
+                >Book a Session</a
+              >
             </div>
           </div>
         </div>
@@ -159,11 +175,11 @@
               available 24/7.
             </p>
             <form action="http://127.0.0.1:8001/api/chat/" method="POST">
-    <!-- If your FastAPI expects JSON, you need JS (see next step) -->
-    <input type="hidden" name="key1" value="value1">
-    <input type="hidden" name="key2" value="value2">
-    <button type="submit" class="feature-btn">Chat Now</button>
-</form>
+              <!-- If your FastAPI expects JSON, you need JS (see next step) -->
+              <input type="hidden" name="key1" value="value1" />
+              <input type="hidden" name="key2" value="value2" />
+              <button type="submit" class="feature-btn">Chat Now</button>
+            </form>
 
             <!-- <a href="http://127.0.0.1:8001/api/chat/" class="feature-btn">Chat Now</a> -->
           </div>
@@ -171,6 +187,14 @@
             <div class="feature-icon">
               <i class="fas fa-clipboard-list"></i>
             </div>
+            <h3>Psychological Self-Tests</h3>
+            <p>
+              Take confidential self-assessment tests to understand your mental
+              health better.
+            </p>
+            <a href="{% provider_login_url 'google' %}" class="feature-btn"
+              >Take Tests</a
+            >
           </div>
           <div class="feature-card">
             <div class="feature-icon">
@@ -181,7 +205,9 @@
               Book confidential sessions with qualified campus therapists at
               your convenience.
             </p>
-            <a href="{% provider_login_url 'google' %}" class="feature-btn">Book Now</a>
+            <a href="{% provider_login_url 'google' %}" class="feature-btn"
+              >Book Now</a
+            >
           </div>
         </div>
       </div>
@@ -305,7 +331,7 @@
     <!-- Chatbot Icon -->
     <div class="chatbot-icon" onclick="toggleChatbot()">
       <i class="fas fa-comments"></i>
-       <!-- <img src="{% static 'main/chatbot.png' %}" alt="Chatbot Icon" class="chatbot-icon-image"> -->
+      <!-- <img src="{% static 'main/chatbot.png' %}" alt="Chatbot Icon" class="chatbot-icon-image"> -->
     </div>
 
     <!-- Chatbot Popup -->

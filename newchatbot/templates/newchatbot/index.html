@@ -2,26 +2,680 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Therapist Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+            background: #ffffff;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: #f7f7f8;
+            border-right: 1px solid #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .new-chat-btn {
+            width: calc(100% - 40px);
+            margin: 20px;
+            padding: 12px 16px;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .new-chat-btn:hover {
+            background: #374151;
+        }
+
+        .new-chat-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Main Chat Area */
+        .main-chat {
+            flex: 1;
+            margin-left: 260px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .chat-header {
+            padding: 20px 32px;
+            border-bottom: 1px solid #e5e5e5;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .chat-header h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+            background: #ffffff;
+        }
+
+        .message-group {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .message {
+            padding: 24px 32px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            max-width: 100%;
+        }
+
+        .message.user {
+            background: #f7f7f8;
+        }
+
+        .message.therapist {
+            background: #ffffff;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .avatar.user {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .avatar.therapist {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .message-content {
+            flex: 1;
+            max-width: calc(100% - 48px);
+        }
+
+        .message-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #1a1a1a;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-text {
+            color: #1a1a1a;
+        }
+
+        .message.therapist .message-text {
+            color: #1a1a1a;
+        }
+
+        /* Welcome Message */
+        .welcome-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .welcome-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.125rem;
+            color: #6b7280;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-top: 32px;
+        }
+
+        .feature-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.875rem;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        /* Input Area */
+        .chat-input-container {
+            background: #ffffff;
+            border-top: 1px solid #e5e5e5;
+            padding: 24px 32px;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .input-wrapper {
+            max-width: 768px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+            background: #ffffff;
+            resize: none;
+            min-height: 56px;
+            max-height: 200px;
+            line-height: 1.5;
+        }
+
+        .input-field:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #9ca3af;
+        }
+
+        .send-button {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .send-button:hover {
+            background: #5a67d8;
+            transform: scale(1.05);
+        }
+
+        .send-button:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .send-button svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                z-index: 1000;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-chat {
+                margin-left: 0;
+            }
+
+            .chat-header {
+                padding: 16px 20px;
+            }
+
+            .message {
+                padding: 20px;
+            }
+
+            .chat-input-container {
+                padding: 20px;
+            }
+
+            .welcome-container {
+                padding: 20px;
+            }
+
+            .welcome-title {
+                font-size: 1.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Scrollbar Styling */
+        .chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Form Styling */
+        .chat-form {
+            margin: 0;
+        }
+
+        .form-group {
+            margin: 0;
+        }
+
+        .form-group p {
+            margin: 0;
+        }
+
+        .form-group label {
+            display: none;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            display: none;
+        }
+
+        /* Auto-resize textarea */
+        .input-field {
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
-    <h1>Therapist Chatbot</h1>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+        </svg>
+    </button>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Send</button>
-    </form>
-
-    <h2>Chat History</h2>
-    <div>
-        {% for chat in history %}
-            <p><strong>You:</strong> {{ chat.prompt }}</p>
-            <p><strong>Therapist:</strong> {{ chat.response }}</p>
-            <hr>
-        {% empty %}
-            <p>No messages yet.</p>
-        {% endfor %}
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h1>Therapist AI</h1>
+            <p>Your mental health companion</p>
+        </div>
+        <button class="new-chat-btn" id="newChatBtn">
+            <svg fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"></path>
+            </svg>
+            New Chat
+        </button>
     </div>
+
+    <!-- Main Chat Area -->
+    <div class="main-chat">
+        <div class="chat-header">
+            <h2 id="chatTitle">Therapist AI Assistant</h2>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <!-- Welcome Message -->
+            <div class="welcome-container" id="welcomeContainer">
+                <div class="welcome-icon">🧠</div>
+                <h1 class="welcome-title">Welcome to Therapist AI</h1>
+                <p class="welcome-subtitle">
+                    I'm your AI mental health companion, here to provide support, guidance, 
+                    and a safe space to discuss your thoughts and feelings.
+                </p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>💬 Active Listening</h3>
+                        <p>I'm here to listen and provide thoughtful responses</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🧘 Mental Wellness</h3>
+                        <p>Get support for stress, anxiety, and emotional challenges</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔒 Confidential</h3>
+                        <p>Your conversations are private and secure</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📚 Resources</h3>
+                        <p>Access helpful information and coping strategies</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat History -->
+            {% for chat in history %}
+                <div class="message-group">
+                    <div class="message therapist">
+                        <div class="avatar therapist">AI</div>
+                        <div class="message-content">
+                            <div class="message-text">{{ chat.prompt }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="message-group">
+                    <div class="message user">
+                        <div class="avatar user">U</div>
+                        <div class="message-content">
+                            <div class="message-text">{{ chat.response }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-container">
+            <div class="input-wrapper">
+                <form method="post" class="chat-form" id="chatForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.as_p }}
+                    </div>
+                    <textarea 
+                        class="input-field" 
+                        id="messageInput" 
+                        placeholder="Message Therapist AI..."
+                        rows="1"
+                        autocomplete="off"
+                    ></textarea>
+                    <button type="submit" class="send-button" id="sendButton">
+                        <svg fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class TherapistAI {
+            constructor() {
+                this.chatMessages = document.getElementById('chatMessages');
+                this.messageInput = document.getElementById('messageInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.chatForm = document.getElementById('chatForm');
+                this.welcomeContainer = document.getElementById('welcomeContainer');
+                this.newChatBtn = document.getElementById('newChatBtn');
+                this.mobileMenuBtn = document.getElementById('mobileMenuBtn');
+                this.sidebar = document.getElementById('sidebar');
+                this.messageCount = 0;
+                
+                this.initializeEventListeners();
+                this.setupAutoResize();
+                this.scrollToBottom();
+            }
+
+            initializeEventListeners() {
+                // Form submission
+                this.chatForm.addEventListener('submit', (e) => this.handleSubmit(e));
+                
+                // Enter key press (Shift+Enter for new line)
+                this.messageInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.handleSubmit(e);
+                    }
+                });
+
+                // New chat button
+                this.newChatBtn.addEventListener('click', () => this.startNewChat());
+                
+                // Mobile menu button
+                this.mobileMenuBtn.addEventListener('click', () => this.toggleSidebar());
+                
+                // Close sidebar when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768 && 
+                        !this.sidebar.contains(e.target) && 
+                        !this.mobileMenuBtn.contains(e.target)) {
+                        this.sidebar.classList.remove('open');
+                    }
+                });
+            }
+
+            setupAutoResize() {
+                this.messageInput.addEventListener('input', () => {
+                    this.messageInput.style.height = 'auto';
+                    this.messageInput.style.height = Math.min(this.messageInput.scrollHeight, 200) + 'px';
+                });
+            }
+
+            handleSubmit(e) {
+                const message = this.messageInput.value.trim();
+                if (!message) return;
+
+                // Hide welcome container on first message
+                if (this.messageCount === 0) {
+                    this.welcomeContainer.style.display = 'none';
+                }
+
+                // Add user message to chat
+                this.addMessage(message, 'user');
+                
+                // Clear input and reset height
+                this.messageInput.value = '';
+                this.messageInput.style.height = 'auto';
+                
+                // Update the hidden form field
+                const formField = this.chatForm.querySelector('input, textarea');
+                if (formField) {
+                    formField.value = message;
+                }
+                
+                // Submit the form
+                this.chatForm.submit();
+            }
+
+            addMessage(text, sender) {
+                this.messageCount++;
+                
+                const messageGroup = document.createElement('div');
+                messageGroup.className = 'message-group';
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}`;
+                
+                const avatar = document.createElement('div');
+                avatar.className = `avatar ${sender}`;
+                avatar.textContent = sender === 'user' ? 'U' : 'AI';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'message-text';
+                textDiv.textContent = text;
+                
+                contentDiv.appendChild(textDiv);
+                messageDiv.appendChild(avatar);
+                messageDiv.appendChild(contentDiv);
+                messageGroup.appendChild(messageDiv);
+                
+                this.chatMessages.appendChild(messageGroup);
+                this.scrollToBottom();
+            }
+
+            startNewChat() {
+                // Clear chat messages
+                this.chatMessages.innerHTML = '';
+                
+                // Show welcome container
+                this.welcomeContainer.style.display = 'block';
+                
+                // Reset message count
+                this.messageCount = 0;
+                
+                // Update chat title
+                document.getElementById('chatTitle').textContent = 'Therapist AI Assistant';
+                
+                // Close mobile sidebar
+                if (window.innerWidth <= 768) {
+                    this.sidebar.classList.remove('open');
+                }
+            }
+
+            toggleSidebar() {
+                this.sidebar.classList.toggle('open');
+            }
+
+            scrollToBottom() {
+                setTimeout(() => {
+                    this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+                }, 100);
+            }
+        }
+
+        // Initialize AI assistant when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new TherapistAI();
+        });
+    </script>
 </body>
 </html>
