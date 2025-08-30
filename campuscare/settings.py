@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "main",
     "tests",
     "userprofile.apps.UserprofileConfig",
+    "newchatbot",
     "chatbot",
     "django.contrib.sites",
     'allauth',
