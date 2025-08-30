@@ -211,7 +211,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section>  
 
     <!-- Tests Section -->
     <section id="tests" class="tests">
@@ -220,31 +220,21 @@
         <div class="tests-grid">
           <div class="test-card">
             <div class="test-icon">
-              <i class="fas fa-brain"></i>
-            </div>
-            <h3>Anxiety Assessment</h3>
-            <p>
-              Evaluate your anxiety levels with our comprehensive assessment
-              tool.
-            </p>
-            <button class="btn btn-primary">Start Test</button>
-          </div>
-          <div class="test-card">
-            <div class="test-icon">
               <i class="fas fa-cloud-sun"></i>
             </div>
-            <h3>Depression Screening</h3>
-            <p>Screen for depression symptoms and get personalized insights.</p>
-            <button class="btn btn-primary">Start Test</button>
+            <h3>GAD-7 Anxiety Test</h3>
+            <p>Questions to evaluate anxiety symptoms and their impact</p>
           </div>
           <div class="test-card">
             <div class="test-icon">
               <i class="fas fa-balance-scale"></i>
             </div>
-            <h3>Stress Level Test</h3>
-            <p>Measure your stress levels and learn coping strategies.</p>
-            <button class="btn btn-primary">Start Test</button>
+            <h3>PSS-10 Stress Test</h3>
+            <p>Questions to measure perceived stress levels</p>
           </div>
+        </div>
+        <div class="test-section-actions">
+          <a href="{% provider_login_url 'google' %}" class="btn btn-primary">Take a Test</a>
         </div>
       </div>
     </section>
