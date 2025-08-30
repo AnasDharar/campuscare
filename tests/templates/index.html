@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment - CampusCare</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>CampusCare Mental Health Assessment</h1>
+                    <p>Take a confidential assessment to better understand your mental health</p>
+                </div>
+                <button id="themeToggle" class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Test Selection Screen -->
+        <div id="test-selection" class="screen active">
+            <div class="test-grid">
+                <div class="test-card phq9" data-test="phq9">
+                    <h3>PHQ-9 Depression Test</h3>
+                    <p>9 questions to assess depression symptoms over the past 2 weeks</p>
+                    <div class="test-duration">~3 minutes</div>
+                </div>
+
+                <div class="test-card gad7" data-test="gad7">
+                    <h3>GAD-7 Anxiety Test</h3>
+                    <p>7 questions to evaluate anxiety symptoms and their impact</p>
+                    <div class="test-duration">~2 minutes</div>
+                </div>
+
+                <div class="test-card pss10" data-test="pss10">
+                    <h3>PSS-10 Stress Test</h3>
+                    <p>10 questions to measure perceived stress levels</p>
+                    <div class="test-duration">~3 minutes</div>
+                </div>
+
+                <div class="test-card sleep" data-test="sleep">
+                    <h3>Sleep Quality Test</h3>
+                    <p>5 questions to assess your sleep patterns and quality</p>
+                    <div class="test-duration">~2 minutes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Taking Screen -->
+        <div id="test-taking" class="screen">
+            <div class="test-header">
+                <button id="back-to-selection" class="back-btn">← Back to Tests</button>
+                <div class="test-info">
+                    <h2 id="current-test-title"></h2>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                        <span id="progress-text">Question 1 of 9</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-card">
+                    <div class="question-number" id="question-number">Question 1</div>
+                    <div class="question-text" id="question-text"></div>
+                    
+                    <div class="options-container" id="options-container">
+                        <!-- Options will be dynamically generated -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button id="prev-btn" class="nav-btn secondary" disabled>Previous</button>
+                <button id="next-btn" class="nav-btn primary" disabled>Next</button>
+                <button id="submit-btn" class="nav-btn primary" style="display: none;">Submit Test</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="test-results" class="screen">
+            <div class="results-container">
+                <div class="results-header">
+                    <h2 id="results-title"></h2>
+                    <div class="results-date" id="results-date"></div>
+                </div>
+                
+                <div class="score-display">
+                    <div class="score-circle">
+                        <span id="score-value"></span>
+                        <span id="score-total"></span>
+                    </div>
+                </div>
+
+                <div class="category-display">
+                    <div id="category-badge" class="category-badge"></div>
+                    <div id="category-description" class="category-description"></div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="take-another" class="nav-btn primary">Take Another Test</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
