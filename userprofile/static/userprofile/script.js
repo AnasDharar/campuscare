@@ -85,52 +85,6 @@ class ProfileManager {
         });
     }
 
-    // Profile Management
-    loadUserProfile() {
-        const saved = localStorage.getItem('campuscare-user-profile');
-        if (saved) {
-            return JSON.parse(saved);
-        }
-        
-        // Default profile
-        return {
-            username: 'student123',
-            fullName: 'Alex Johnson',
-            collegeName: 'University of Technology',
-            email: 'alex.johnson@university.edu'
-        };
-    }
-
-    saveProfile() {
-        const formData = new FormData(document.getElementById('profileForm'));
-        
-        this.userProfile = {
-            username: formData.get('username'),
-            fullName: formData.get('fullName'),
-            collegeName: formData.get('collegeName'),
-            email: formData.get('email') || ''
-        };
-
-        localStorage.setItem('campuscare-user-profile', JSON.stringify(this.userProfile));
-        this.renderProfile();
-        this.toggleEditMode();
-        
-        // Show success message
-        this.showNotification('Profile updated successfully!', 'success');
-    }
-
-    renderProfile() {
-        document.getElementById('displayName').textContent = this.userProfile.fullName;
-        document.getElementById('displayCollege').textContent = this.userProfile.collegeName;
-        document.getElementById('displayEmail').textContent = this.userProfile.email || 'No email provided';
-        
-        // Populate edit form
-        document.getElementById('username').value = this.userProfile.username;
-        document.getElementById('fullName').value = this.userProfile.fullName;
-        document.getElementById('collegeName').value = this.userProfile.collegeName;
-        document.getElementById('email').value = this.userProfile.email || '';
-    }
-
     // Therapy Management
     loadTherapies() {
         const saved = localStorage.getItem('campuscare-therapies');
